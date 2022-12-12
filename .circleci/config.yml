@@ -11,7 +11,7 @@ commands:
   pipeline_failure:
     description: "Prints the pipeline id"
     steps:
-      - run: return 1
+      - run: exit 1
       - run:
           name: Run on failure
           command: echo "it failed"
