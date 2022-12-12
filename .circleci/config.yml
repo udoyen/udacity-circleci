@@ -15,7 +15,7 @@ jobs:
       steps:
         - checkout
         - persist_to_workspace:
-            root: /home/circleci/projects 
+            root: /home/circleci/project 
             paths:
               - foo
         - run: 
