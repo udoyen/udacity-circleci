@@ -15,7 +15,7 @@ jobs:
       steps:
         - checkout
         - persist_to_workspace:
-            root: /tmp/workspace
+            root: .
             paths:
               - foo
         - run: 
@@ -29,7 +29,7 @@ jobs:
       steps:
         - checkout
         - attach_workspace:
-            at: /tmp/workspace
+            at: ./
         - run: cat foo/output.txt
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
