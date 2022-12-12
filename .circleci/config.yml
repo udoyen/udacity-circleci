@@ -8,21 +8,21 @@ orbs:
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 commands:
-  print_pipeline_id:
+  pipeline_failure:
     description: "Prints the pipeline id"
-    parameters:
-      id:
-        type: string
-        default: $CIRCLE_WORKFLOW_ID
     steps:
-      - run: echo << parameters.id >>
+      - run: return 1
+      - run: echo "hello"
+          name: Run on failure
+          command: echo "it failed"
+          when: on_fail
 jobs:
   print_id:
     # Specify the execution environment.
       docker:
         - image: circleci/node:13.8.0
       steps:
-        - print_pipeline_id
+        - pipeline_failure
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
