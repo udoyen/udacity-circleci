@@ -7,36 +7,26 @@ orbs:
     welcome: circleci/welcome-orb@0.4.1
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
+commands:
+  print_pipeline_id:
+    description: "Prints the pipeline id"
+    parameters:
+      id:
+        type: string
+        default: $CIRCLE_WORKFLOW_ID
+    steps:
+      - runs: echo << parameters.id >>
 jobs:
-  save_hello_world_output:
+  print_id:
     # Specify the execution environment.
       docker:
         - image: circleci/node:13.8.0
       steps:
-        - run: 
-            name: "Echo hello"
-            command: |
-              echo "text to output here" > output.txt
-              pwd
-              ls ./
-        - persist_to_workspace:
-            root: ~/project 
-            paths:
-              - .
-  print_output_file:
-    # Specify the execution environment.
-      docker:
-        - image: circleci/node:13.8.0
-      steps:
-        - attach_workspace:
-            at: /tmp/workspace
-        - run: cat /tmp/workspace/output.txt
+        - print_pipeline_id
+
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   hello-workflow:
     jobs:
-      - save_hello_world_output
-      - print_output_file:
-          requires:
-            - save_hello_world_output
+      - print_id
