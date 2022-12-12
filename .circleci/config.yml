@@ -15,7 +15,7 @@ commands:
         type: string
         default: $CIRCLE_WORKFLOW_ID
     steps:
-      - runs: echo << parameters.id >>
+      - run: echo << parameters.id >>
 jobs:
   print_id:
     # Specify the execution environment.
