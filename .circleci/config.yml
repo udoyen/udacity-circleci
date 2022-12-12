@@ -14,25 +14,24 @@ jobs:
         - image: circleci/node:13.8.0
       steps:
         - checkout
-        - persist_to_workspace:
-            root: /home/circleci/project 
-            paths:
-              - .
         - run: 
             name: "Echo hello"
             command: |
               echo "text to output here" > output.txt
               pwd
               ls ./
+        - persist_to_workspace:
+            root: ~/project 
+            paths:
+              - .
   print_output_file:
     # Specify the execution environment.
       docker:
         - image: circleci/node:13.8.0
       steps:
-        - checkout
         - attach_workspace:
-            at: /home/circleci/project
-        - run: ls ./; cat /home/circleci/project/output.txt
+            at: /tmp/workspace
+        - run: ls ./; cat /tmp/workspace/output.txt
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
