@@ -22,6 +22,7 @@ jobs:
             name: "Echo hello"
             command: |
               echo "text to output here" > output.txt
+              ls ./
   print_output_file:
     # Specify the execution environment.
       docker:
